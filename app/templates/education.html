@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Education — {{ profile.name }}{% endblock %}
+{% block og_title %}Education — {{ profile.name }}{% endblock %}
+{% block og_description %}Academic background and qualifications of {{ profile.name }}.{% endblock %}
+
+{% block profile_block %}
+<header class="page-header">
+  <div class="container page-header-inner">
+    <p class="eyebrow">What I studied</p>
+    <h1 class="page-title">Education</h1>
+    <p class="page-description">
+      A mix of design theory, hands-on craft, and a stubborn habit of always learning something new.
+    </p>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<section class="container card-grid cols-2">
+  {% for item in education %}
+  <article class="edu-card">
+    <div class="edu-card-top">
+      <span class="edu-card-icon" aria-hidden="true">
+        <svg class="icon icon-md" viewBox="0 0 24 24">
+          <path d="M22 10 12 5 2 10l10 5 10-5Z" />
+          <path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" />
+        </svg>
+      </span>
+      <span class="edu-card-period">{{ item.period }}</span>
+    </div>
+
+    <h2 class="edu-card-degree">{{ item.degree }}</h2>
+    <p class="edu-card-school">{{ item.school }}</p>
+    <p class="edu-card-location">{{ item.location }}</p>
+    <p class="edu-card-description">{{ item.description }}</p>
+
+    <ul class="edu-card-highlights">
+      {% for highlight in item.highlights %}
+      <li class="tag-pill">{{ highlight }}</li>
+      {% endfor %}
+    </ul>
+  </article>
+  {% else %}
+  <p class="text-muted">No education listed yet.</p>
+  {% endfor %}
+</section>
+{% endblock %}
