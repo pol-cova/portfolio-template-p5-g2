@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="{% block og_title %}Personal Portfolio{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}My Personal Portfolio{% endblock %}">
+    <meta property="og:url" content="{{ request.url }}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link rel='icon' href="{{ url_for('static', filename='img/favicon.ico') }}" type='image/x-icon' />
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+</head>
+
+<body>
+    <header class="nav-bar">
+        <div class="nav-content container">
+            <a href="{{ url_for('home') }}" class="logo-touch-target">
+                <div class="nav-logo">
+                    <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="{{ profile.name }} logo">
+                </div>
+            </a>
+
+            <nav>
+                <ul class="navbar-links">
+                    {% for link in nav_links %}
+                    <li>
+                        <a href="{{ link.href }}" class="navbar-link {% if request.path == link.href %}is-active{% endif %}">
+                            {{ link.label }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+
+            <button type="button" class="navbar-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+                <svg class="icon icon-md" id="iconMenu" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                <svg class="icon icon-md" id="iconClose" viewBox="0 0 24 24" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+
+        <div class="navbar-mobile" id="navMobile">
+            <ul class="navbar-mobile-list container">
+                {% for link in nav_links %}
+                <li>
+                    <a href="{{ link.href }}" class="navbar-mobile-link {% if request.path == link.href %}is-active{% endif %}">
+                        {{ link.label }}
+                    </a>
+                </li>
+                {% endfor %}
+                <li class="navbar-mobile-cta">
+                    <a href="mailto:{{ profile.email }}">Get in touch</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    {% block profile_block %}
+    <div class="profile">
+        <div id="profile-picture" class="profile-picture">
+            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Portrait of {{ profile.name }}">
+        </div>
+        <h1>{{ title }}</h1>
+    </div>
+    {% endblock %}
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner container">
+            <div class="footer-top">
+                <div class="footer-connect">
+                    <p class="eyebrow" style="letter-spacing:0.2em;">Let's connect</p>
+                    <a href="mailto:{{ profile.email }}" class="footer-email">{{ profile.email }}</a>
+                    <p class="footer-note">
+                        Based in {{ profile.location }}. Open to design work, collaborations, and trail recommendations.
+                    </p>
+                </div>
+
+                <div class="footer-cols">
+                    <div>
+                        <p class="footer-col-title">Pages</p>
+                        <ul class="footer-col-list">
+                            {% for link in nav_links %}
+                            <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p class="footer-col-title">Elsewhere</p>
+                        <ul class="footer-col-list">
+                            {% for social in profile.socials %}
+                            <li><a href="{{ social.href }}" target="_blank" rel="noopener noreferrer">{{ social.label }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; {{ current_year }} {{ profile.name }}. All rights reserved.</p>
+                <p class="tagline">Designed &amp; built with care</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navToggle = document.getElementById('navToggle');
+        const navMobile = document.getElementById('navMobile');
+        const iconMenu = document.getElementById('iconMenu');
+        const iconClose = document.getElementById('iconClose');
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = navMobile.classList.toggle('is-open');
+            navToggle.setAttribute('aria-expanded', isOpen);
+            navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+            iconMenu.style.display = isOpen ? 'none' : 'block';
+            iconClose.style.display = isOpen ? 'block' : 'none';
+        });
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
