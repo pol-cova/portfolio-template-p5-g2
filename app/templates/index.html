@@ -1,40 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:title" content="Personal Portfolio">
-    <meta property="og:description" content="My Personal Portfolio">
-    <meta property="og:url" content="{{ url }}">
+{% block title %}{{ profile.name }} — Designer, Maker & Traveler{% endblock %}
+{% block og_title %}{{ profile.name }} — Designer, Maker & Traveler{% endblock %}
+{% block og_description %}{{ profile.tagline }}{% endblock %}
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+{% block profile_block %}
+<!-- Hero (homepage override of the default profile block) -->
+<section class="border-b">
+  <div class="container hero">
+    <div>
+      <div class="hero-availability">
+        <span class="dot"></span>
+        Available for new projects
+      </div>
 
-    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
-    <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
-    <title>{{ title }}</title>
-</head>
+      <h1 class="hero-name">
+        {{ profile.first_name }}<br>
+        <span class="accent">{{ profile.last_name }}</span>
+      </h1>
 
-<body>
-    <header class="nav-bar">
-        <div class="nav-content">
-            <a href="/">
-                <div class="nav-logo">
-                    <img src="./static/img/logo.svg" />
-                </div>
-            </a>
-        </div>
-    </header>
+      <p class="hero-tagline">{{ profile.tagline }}</p>
 
-    <div class="profile">
-        <div id="profile-picture" class="profile-picture">
-            <img src="./static/img/logo.jpg">
-        </div>
-        <h1>{{ title }}</h1>
+      <div class="hero-location">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        {{ profile.location }}
+      </div>
+
+      <div class="hero-actions">
+        <a href="mailto:{{ profile.email }}" class="btn btn-primary">
+          Get connected
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <a href="{{ url_for('experience') }}" class="btn btn-outline">View work</a>
+      </div>
     </div>
-</body>
-</html>
+
+    <div class="hero-portrait-wrap">
+      <div class="hero-portrait">
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Portrait of {{ profile.name }}">
+      </div>
+      <div class="hero-role-badge">{{ profile.role }}</div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block content %}
+
+<!-- Marquee -->
+<section class="marquee-section">
+  <div class="marquee-track">
+    {% for item in marquee_items * 2 %}
+    <div class="marquee-item">
+      <span class="label">{{ item }}</span>
+      <span class="slash">/</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- About -->
+<section class="border-b">
+  <div class="container about-section">
+    <div>
+      <p class="eyebrow">About me</p>
+      <h2 class="about-heading">
+        Designer.<br>
+        Maker.<br>
+        Wanderer.
+      </h2>
+    </div>
+    <div class="about-copy">
+      {% for para in about_paragraphs %}
+      <p>{{ para }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Explore links -->
+<section class="border-b">
+  <div class="container explore-section">
+    <p class="eyebrow">Explore the rest</p>
+    <div class="explore-grid">
+      {% for link in nav_links %}
+        {% if link.href != url_for('home') %}
+        <a href="{{ link.href }}" class="explore-link">
+          <span class="label">{{ link.label }}</span>
+          <svg class="icon icon-lg" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Connect CTA -->
+<section>
+  <div class="container cta-section">
+    <p class="eyebrow">Get connected with me</p>
+    <h2 class="cta-heading">Let's make something good together</h2>
+    <div class="cta-actions">
+      <a href="mailto:{{ profile.email }}" class="btn btn-primary btn-lg">
+        Say hello
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+      </a>
+      {% for social in profile.socials %}
+      <a href="{{ social.href }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-lg">
+        {{ social.label }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
