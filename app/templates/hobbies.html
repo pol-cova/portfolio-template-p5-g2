@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Hobbies — {{ profile.name }}{% endblock %}
+{% block og_title %}Hobbies — {{ profile.name }}{% endblock %}
+{% block og_description %}What {{ profile.first_name }} gets up to outside of work.{% endblock %}
+
+{% block profile_block %}
+<header class="page-header">
+  <div class="container page-header-inner">
+    <p class="eyebrow">Off the clock</p>
+    <h1 class="page-title">Hobbies</h1>
+    <p class="page-description">
+      The non-work obsessions that keep me curious, calm, and occasionally covered in flour.
+    </p>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<section class="container hobby-grid">
+  {% for hobby in hobbies %}
+  <article class="hobby-card">
+    <div class="hobby-card-media">
+      <img src="{{ url_for('static', filename='img/' + hobby.image) }}" alt="{{ hobby.title }}">
+      {% if hobby.accent %}
+      <span class="hobby-card-accent">{{ hobby.accent }}</span>
+      {% endif %}
+    </div>
+
+    <div class="hobby-card-body">
+      <div class="hobby-card-heading">
+        <span class="hobby-card-index">{{ "%02d"|format(loop.index) }}</span>
+        <h2 class="hobby-card-title">{{ hobby.title }}</h2>
+      </div>
+      <p class="hobby-card-description">{{ hobby.description }}</p>
+    </div>
+  </article>
+  {% else %}
+  <p class="text-muted">No hobbies listed yet.</p>
+  {% endfor %}
+</section>
+{% endblock %}
