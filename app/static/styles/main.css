@@ -1,20 +1,5 @@
-/* ==========================================================================
-   Maya Okafor — Portfolio
-   Converted from a Next.js + Tailwind template into plain static CSS
-   for a Flask / Jinja site.
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   1. Fonts
-   The original template uses next/font with Geist Sans, Geist Mono and
-   Archivo Black. We pull the closest open equivalents from Google Fonts.
-   -------------------------------------------------------------------------- */
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
-/* --------------------------------------------------------------------------
-   2. Design tokens (custom properties)
-   Values below are converted 1:1 from the template's oklch() tokens.
-   -------------------------------------------------------------------------- */
 :root {
   --font-heading: "Archivo Black", "Helvetica Neue", Arial, sans-serif;
   --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -53,19 +38,17 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
 
-  --max-width: 1152px; /* matches Tailwind's max-w-6xl */
-  --gutter: 20px;       /* px-5 */
+  --max-width: 1152px; 
+  --gutter: 20px;       
 }
 
 @media (min-width: 768px) {
   :root {
-    --gutter: 32px; /* md:px-8 */
+    --gutter: 32px; 
   }
 }
 
-/* --------------------------------------------------------------------------
-   3. Reset / base
-   -------------------------------------------------------------------------- */
+
 *,
 *::before,
 *::after {
@@ -116,7 +99,7 @@ main {
   min-height: 100vh;
 }
 
-/* utility container, mirrors mx-auto max-w-6xl px-5 md:px-8 */
+
 .container {
   width: 100%;
   max-width: var(--max-width);
@@ -211,9 +194,7 @@ main {
   height: 24px;
 }
 
-/* --------------------------------------------------------------------------
-   4. Navbar
-   -------------------------------------------------------------------------- */
+
 .site-header {
   position: sticky;
   top: 0;
@@ -232,7 +213,7 @@ main {
   padding-bottom: 16px;
 }
 
-/* nav-content: wraps logo + nav links, mirrors the sample markup */
+
 .nav-content {
   display: flex;
   align-items: center;
@@ -402,9 +383,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   4b. Profile block (centered hero used by base.html)
-   -------------------------------------------------------------------------- */
+
 .profile {
   background-color: var(--color-card);
   border-bottom: 1px solid var(--color-border);
@@ -449,9 +428,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   5. Hero
-   -------------------------------------------------------------------------- */
+
 .hero {
   display: grid;
   gap: 40px;
@@ -580,9 +557,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   6. Marquee
-   -------------------------------------------------------------------------- */
+
 .marquee-section {
   overflow: hidden;
   border-bottom: 1px solid var(--color-border);
@@ -626,9 +601,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   7. About section
-   -------------------------------------------------------------------------- */
+
 .about-section {
   display: grid;
   gap: 40px;
@@ -670,9 +643,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   8. Explore grid (cross-page links)
-   -------------------------------------------------------------------------- */
+
 .explore-section {
   padding-top: 64px;
   padding-bottom: 64px;
@@ -744,9 +715,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   9. Connect CTA (home page footer section)
-   -------------------------------------------------------------------------- */
+
 .cta-section {
   padding-top: 80px;
   padding-bottom: 80px;
@@ -789,9 +758,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   10. Footer
-   -------------------------------------------------------------------------- */
+
 .site-footer {
   border-top: 1px solid var(--color-border);
   background-color: var(--color-card);
@@ -906,9 +873,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   11. Page header (used on Experience / Education / Hobbies / Travel)
-   -------------------------------------------------------------------------- */
+
 .page-header {
   border-bottom: 1px solid var(--color-border);
 }
@@ -952,9 +917,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   12. Experience page (timeline)
-   -------------------------------------------------------------------------- */
+
 .timeline {
   padding-top: 48px;
   padding-bottom: 48px;
@@ -1046,9 +1009,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   13. Education page (card grid)
-   -------------------------------------------------------------------------- */
+
 .card-grid {
   padding-top: 48px;
   padding-bottom: 48px;
@@ -1142,9 +1103,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   14. Hobbies page
-   -------------------------------------------------------------------------- */
+
 .hobby-grid {
   padding-top: 48px;
   padding-bottom: 48px;
@@ -1237,9 +1196,7 @@ main {
   }
 }
 
-/* --------------------------------------------------------------------------
-   15. Travel page
-   -------------------------------------------------------------------------- */
+
 .travel-map-section {
   padding-top: 48px;
   padding-bottom: 48px;
