@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Travel Diary — {{ profile.name }}{% endblock %}
+{% block og_title %}Travel Diary — {{ profile.name }}{% endblock %}
+{% block og_description %}Notes from {{ profile.first_name }}'s trips around the world.{% endblock %}
+
+{% block profile_block %}
+<header class="page-header">
+  <div class="container page-header-inner">
+    <p class="eyebrow">Where I've been</p>
+    <h1 class="page-title">Travel Diary</h1>
+    <p class="page-description">
+      A running log of trips, with a few notes from each one.
+    </p>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<section class="travel-map-section">
+  <div class="container">
+    <p class="eyebrow">Where I've been</p>
+    <div class="travel-map-frame">
+      {% include "_world_map.svg" %}
+      {% for trip in trips %}
+        {% set left = (trip.lon + 180) / 360 * 100 %}
+        {% set top = (90 - trip.lat) / 180 * 100 %}
+        <span class="travel-map-pin" style="left:{{ left }}%; top:{{ top }}%;"></span>
+        <span class="travel-map-pin-label" style="left:{{ left }}%; top:{{ top }}%;">{{ trip.country }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="diary-section">
+  <div class="container">
+    <div class="diary-heading-row">
+      <h2 class="diary-heading">Trip log</h2>
+      <p class="diary-count">{{ trips|length }} trips logged</p>
+    </div>
+
+    <div class="diary-list">
+      {% for trip in trips %}
+      <article class="diary-entry">
+        <div class="diary-entry-media">
+          <img src="{{ url_for('static', filename='img/' + trip.image) }}" alt="{{ trip.country }}">
+        </div>
+
+        <div>
+          <div class="diary-entry-top">
+            <span class="diary-entry-index">{{ "%02d"|format(loop.index) }}</span>
+            <span class="diary-entry-year">{{ trip.year }}</span>
+          </div>
+
+          <h3 class="diary-entry-country">{{ trip.country }}</h3>
+          <p class="diary-entry-city">{{ trip.city }}</p>
+          <p class="diary-entry-note">{{ trip.note }}</p>
+        </div>
+      </article>
+      {% else %}
+      <p class="text-muted">No trips logged yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}
