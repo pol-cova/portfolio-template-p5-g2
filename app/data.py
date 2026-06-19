@@ -178,6 +178,8 @@ trips = [
         "city": "Kyoto & Tokyo",
         "year": "2023",
         "image": "travel-japan.png",
+        "lon": 138.2529,
+        "lat": 36.2048,
         "note": (
             "Two weeks of temples, tiny noodle bars, and getting joyfully "
             "lost. Kyoto at cherry blossom season is unreal."
@@ -188,6 +190,8 @@ trips = [
         "city": "Ring Road",
         "year": "2022",
         "image": "travel-iceland.png",
+        "lon": -19.0208,
+        "lat": 64.9631,
         "note": (
             "A campervan loop around the whole island. Waterfalls, black "
             "beaches, and the northern lights on the last night."
@@ -198,6 +202,8 @@ trips = [
         "city": "Marrakech",
         "year": "2021",
         "image": "travel-morocco.png",
+        "lon": -7.9811,
+        "lat": 31.6295,
         "note": (
             "The souks were sensory overload in the best way. Came home "
             "with spices, a rug, and a thousand color references."
@@ -208,6 +214,8 @@ trips = [
         "city": "Cusco & Machu Picchu",
         "year": "2019",
         "image": "travel-peru.png",
+        "lon": -72.545,
+        "lat": -13.1631,
         "note": (
             "Hiked the Salkantay trek to Machu Picchu. Hardest and most "
             "rewarding five days of walking I have ever done."
@@ -218,6 +226,8 @@ trips = [
         "city": "Amalfi Coast",
         "year": "2018",
         "image": "travel-italy.png",
+        "lon": 14.6027,
+        "lat": 40.634,
         "note": (
             "Lemons, cliffside towns, and far too much gelato. A slow, "
             "sun-drenched week of doing very little on purpose."
