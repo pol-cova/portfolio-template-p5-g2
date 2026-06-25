@@ -1,0 +1,68 @@
+profile:
+  name: "Paul Contreras"
+  first_name: "Paul"
+  last_name: "Contreras"
+  role: "Computer and Electronics Engineer Student"
+  location: "Guadalajara, Mexico"
+  email: "paul@paulcontre.com"
+  tagline: "Computer and Electronics Engineer Student"
+  socials:
+    - label: "LinkedIn"
+      href: "https://www.linkedin.com/in/paul-contre"
+    - label: "GitHub"
+      href: "https://github.com/pol-cova"
+    - label: "X"
+      href: "https://x.com/paulcontr_"
+    - label: "Instagram"
+      href: "https://www.instagram.com/paulcontr_"
+
+nav_links:
+  - label: "Home"
+    href: "/"
+  - label: "Experience"
+    href: "/experience"
+  - label: "Education"
+    href: "/education"
+  - label: "Hobbies"
+    href: "/hobbies"
+  - label: "Travel"
+    href: "/travel"
+
+about_paragraphs:
+  - "I'm Paul Contreras, a Computer and Electronics Engineer Student based in Guadalajara, Mexico."
+  - "I focus on electronics, embedded systems, and software development, building things that bridge the gap between hardware and software."
+
+marquee_items:
+  - "Software Engineering"
+  - "Electronics"
+  - "iOS Development"
+  - "Embedded Systems"
+  - "Product Design"
+  - "Learning"
+
+experiences:
+  - period: "2026 — present"
+    role: "iOS Developer"
+    company: "mkrz.studio"
+    type: "Guadalajara, Mexico"
+    description: ""
+    tags: []
+
+  - period: "2024 — 2026"
+    role: "Software Engineer"
+    company: "CUValles Software Development Lab"
+    type: "Guadalajara, Mexico"
+    description: ""
+    tags: []
+
+education:
+  - period: "2022 — 2026"
+    degree: "Computer and Electronics Engineer"
+    school: "Universidad de Guadalajara"
+    location: "Guadalajara, Mexico"
+    description: ""
+    highlights: []
+
+hobbies: []
+
+trips: []

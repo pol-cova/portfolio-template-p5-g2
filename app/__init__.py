@@ -1,63 +1,48 @@
+import os
 from datetime import datetime
 
+import yaml
 from flask import Flask, render_template
 
-from app.data import (
-    profile,
-    about_paragraphs,
-    marquee_items,
-    experiences,
-    education,
-    hobbies,
-    trips,
-)
-
 app = Flask(__name__)
-
-nav_links = [
-    {"label": "Home", "href": "/"},
-    {"label": "Experience", "href": "/experience"},
-    {"label": "Education", "href": "/education"},
-    {"label": "Hobbies", "href": "/hobbies"},
-    {"label": "Travel", "href": "/travel"},
-]
+app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", 0)
 
 
 @app.context_processor
 def inject_globals():
-    """Makes these available in every template without passing explicitly."""
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(base_dir, "data.yml"), "r", encoding="utf-8") as file:
+        data = yaml.safe_load(file) or {}
     return {
-        "profile": profile,
-        "nav_links": nav_links,
+        **data,
         "current_year": datetime.now().year,
     }
 
 
 @app.route("/")
 def home():
-    return render_template(
-        "index.html",
-        about_paragraphs=about_paragraphs,
-        marquee_items=marquee_items,
-    )
+    return render_template("index.html")
 
 
 @app.route("/experience")
 def experience():
-    return render_template("experience.html", experiences=experiences)
+    return render_template("experience.html")
+
 
 @app.route("/education")
 def education_page():
-    return render_template("education.html", education=education)
+    return render_template("education.html")
+
 
 @app.route("/hobbies")
 def hobbies_page():
-    return render_template("hobbies.html", hobbies=hobbies)
+    return render_template("hobbies.html")
 
 
 @app.route("/travel")
 def travel():
-    return render_template("travel.html", trips=trips)
+    return render_template("travel.html")
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
