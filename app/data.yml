@@ -6,7 +6,7 @@ profile:
   location: "Guadalajara, Mexico"
   email: "paul@paulcontre.com"
   tagline: "I just love building things :)"
-  fun_fact: "I love the coffee :0"
+  fun_fact: "fun fact: I love the coffee :0"
   socials:
     - label: "LinkedIn"
       href: "https://www.linkedin.com/in/paul-contre"
@@ -62,79 +62,90 @@ experiences:
     company: "CUValles Software Development Lab"
     type: "Guadalajara, Mexico"
     description: "Developed software projects that connected academic research, practical engineering, and real user needs."
-    tags: ["Python", "Flask", "Engineering"]
+    tags: ["Python", "TypeScript", "Software Engineering", "ML"]
 
 education:
   - period: "2022 — 2026"
     degree: "Computer and Electronics Engineer"
     school: "Universidad de Guadalajara"
     location: "Guadalajara, Mexico"
-    description: "Coursework and projects spanning software engineering, digital electronics, embedded systems, and computer architecture."
+    description: "I learn a lot of how things works, computer architecture, and electronics, and much more."
     highlights: ["Embedded Systems", "Electronics", "Software"]
 
 hobbies:
-  - title: "Hiking"
-    image: "hobby-hiking.png"
-    accent: "Trails and mountain air"
+  - title: "Astrophotography"
+    image: "astro.jpg"
+    accent: "My first astro photo: M42"
     effect: "pixel"
-    description: "Long walks, steep climbs, and the occasional early start for a better view."
+    description: "Capturing the beauty of space."
   - title: "Photography"
-    image: "hobby-photography.png"
-    accent: "Light, geometry, and places"
-    effect: "dither"
+    image: "photo.jpg"
+    accent: "Just a lake :)"
     description: "Documenting details, architecture, and travel moments through a camera."
-  - title: "Cooking"
-    image: "hobby-cooking.png"
-    accent: "Experiments from the kitchen"
-    effect: "halftone"
-    description: "Learning recipes by making them, adjusting them, and sharing the results."
-  - title: "Vinyl"
-    image: "hobby-vinyl.png"
-    accent: "Albums from beginning to end"
-    effect: "scanlines"
-    description: "Collecting records and making time to listen without skipping around."
+  - title: "Competitive Programming"
+    image: "icpc.jpg"
+    accent: "C++ GOD"
+    description: "I love doing competitive programming, also i lead an algorithms club (upsolve.club)."
+  - title: "Videgames"
+    image: "lol.jpg"
+    accent: "lol :)"
+    effect: "pixel"
+    description: "My favs: Warzone, Red Dead Redemption Nightmare and in general all CODs (i got a collection from the first)"
 
 trips:
-  - country: "Iceland"
-    city: "Reykjavík"
-    year: "2024"
-    code: "IS"
-    lat: 64.1466
-    lon: -21.9426
-    image: "travel-iceland.png"
-    note: "Black-sand coastlines, geothermal landscapes, and very long summer light."
+  - country: "United States"
+    city: "Las Vegas"
+    year: "Dec 2025"
+    code: "US"
+    lat: 36.1716
+    lon: -115.1391
+    marker_label: "LV"
+    marker_x: 20.6
+    marker_y: 45.2
+    image: "travel-las-vegas.png"
+    note: "Go Gambling"
+  - country: "United States"
+    city: "San Francisco"
+    year: "Nov 2025"
+    code: "US"
+    lat: 37.7749
+    lon: -122.4194
+    marker_label: "SF"
+    marker_x: 17.2
+    marker_y: 42.8
+    image: "travel-san-francisco.png"
+    note: "Bay views, steep streets, fog, coffee stops, and a lot of good walking."
+  - country: "Mexico"
+    city: "Mexico City"
+    year: "Early Nov 2025"
+    code: "MX"
+    lat: 19.4326
+    lon: -99.1332
+    marker_x: 21.6
+    marker_y: 50.2
+    image: "travel-mexico-city.png"
+    note: "Street food, museums, parks, and long walks through busy neighborhoods."
   - country: "Italy"
-    city: "Rome"
-    year: "2023"
+    city: "Naples"
+    year: "Sep 2022"
     code: "IT"
-    lat: 41.9028
-    lon: 12.4964
-    image: "travel-italy.png"
-    note: "Layers of history, walkable streets, and a lot of memorable food."
-  - country: "Japan"
-    city: "Tokyo"
-    year: "2023"
-    code: "JP"
-    lat: 35.6762
-    lon: 139.6503
-    image: "travel-japan.png"
-    note: "Dense city systems, quiet neighborhoods, and exceptional attention to detail."
-  - country: "Morocco"
-    city: "Marrakesh"
-    year: "2022"
-    code: "MA"
-    lat: 31.6295
-    lon: -7.9811
-    image: "travel-morocco.png"
-    note: "Color, texture, markets, courtyards, and a completely different urban rhythm."
-  - country: "Peru"
-    city: "Cusco"
-    year: "2022"
-    code: "PE"
-    lat: -13.5319
-    lon: -71.9675
-    image: "travel-peru.png"
-    note: "High-altitude streets, mountain routes, and remarkable stonework."
+    lat: 40.8518
+    lon: 14.2681
+    marker_x: 54.0
+    marker_y: 40.0
+    image: "travel-naples.png"
+    note: "Coastal views, historic streets, and some of the best pizza anywhere."
+  - country: "United States"
+    city: "Lake Tahoe"
+    year: "Summer 2022"
+    code: "US"
+    lat: 39.0968
+    lon: -120.0324
+    marker_label: "LT"
+    marker_x: 19.2
+    marker_y: 41.0
+    image: "travel-lake-tahoe.png"
+    note: "Clear water, mountain roads, and the first fish I ever caught."
 
 apps:
   - name: "Gessi"

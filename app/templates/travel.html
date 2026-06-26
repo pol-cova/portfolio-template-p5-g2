@@ -1,10 +1,7 @@
-{% extends "base.html" %}
-
-{% block title %}Travel Diary — {{ profile.name }}{% endblock %}
-{% block og_title %}Travel Diary — {{ profile.name }}{% endblock %}
-{% block og_description %}Notes from {{ profile.first_name }}'s trips around the world.{% endblock %}
-
-{% block desktop_content %}
+{% extends "base.html" %} {% block title %}Travel Diary — {{ profile.name }}{%
+endblock %} {% block og_title %}Travel Diary — {{ profile.name }}{% endblock %}
+{% block og_description %}Notes from {{ profile.first_name }}'s trips around the
+world.{% endblock %} {% block desktop_content %}
 <gessi-window
     id="travel-map"
     title="World Map"
@@ -17,11 +14,12 @@
     active
     draggable
     resizable
-    zoomable>
+    zoomable
+>
     <gessi-toolbar slot="toolbar" label="Map controls">
         <button data-gessi-pattern="grid">Grid Desktop</button>
         <button data-gessi-pattern="noise">Noise Desktop</button>
-        <gessi-tooltip text="Markers use latitude and longitude from data.yml">
+        <gessi-tooltip text="Markers use map coordinates from data.yml">
             <button type="button">Map Info</button>
         </gessi-tooltip>
     </gessi-toolbar>
@@ -33,15 +31,17 @@
             caption="Travel archive · {{ trips|length }} destinations"
             effect="mono"
             fit="contain"
-            style="--gs-map-height: 310px">
-            {% for trip in trips %}
-            {% set marker_x = (trip.lon + 180) / 360 * 100 %}
-            {% set marker_y = (90 - trip.lat) / 180 * 100 %}
+            style="--gs-map-height: 310px"
+        >
+            {% for trip in trips %} {% set marker_x =
+            trip.marker_x|default((trip.lon + 180) / 360 * 100) %} {% set
+            marker_y = trip.marker_y|default((90 - trip.lat) / 180 * 100) %}
             <gessi-marker
                 x="{{ marker_x }}%"
                 y="{{ marker_y }}%"
-                label="{{ trip.city }}, {{ trip.country }}">
-                {{ trip.code }}
+                label="{{ trip.city }}, {{ trip.country }}"
+            >
+                {{ trip.marker_label|default(trip.code) }}
             </gessi-marker>
             {% endfor %}
         </gessi-map>
@@ -50,18 +50,14 @@
             <strong>Destinations</strong>
             <gessi-tree>
                 <ul>
-                    <li>Europe
-                        <ul><li>Iceland</li><li>Italy</li></ul>
+                    {% for trip in trips %}
+                    <li>
+                        {{ trip.city }}
+                        <ul>
+                            <li>{{ trip.country }}</li>
+                        </ul>
                     </li>
-                    <li>Asia
-                        <ul><li>Japan</li></ul>
-                    </li>
-                    <li>Africa
-                        <ul><li>Morocco</li></ul>
-                    </li>
-                    <li>Americas
-                        <ul><li>Peru</li></ul>
-                    </li>
+                    {% endfor %}
                 </ul>
             </gessi-tree>
         </aside>
@@ -76,15 +72,17 @@
     width="420px"
     height="245px"
     padding="0"
-    draggable>
+    draggable
+>
     <gessi-carousel aria-label="Travel stories">
         {% for trip in trips %}
         <article class="portfolio-carousel-card">
             <gessi-media
-                    src="{{ url_for('static', filename='img/' + trip.image) }}"
-                    alt="{{ trip.country }}"
-                    effect="dither"
-                    aspect="4 / 3">
+                src="{{ url_for('static', filename='img/' + trip.image) }}"
+                alt="{{ trip.country }}"
+                effect="dither"
+                aspect="4 / 3"
+            >
             </gessi-media>
             <div>
                 <strong>{{ trip.country }} — {{ trip.year }}</strong>
@@ -97,8 +95,4 @@
         {% endfor %}
     </gessi-carousel>
 </gessi-window>
-
-<gessi-toast title="Travel map ready" position="bottom-right" dismissible>
-    Map markers, destination tree, and travel carousel are active.
-</gessi-toast>
 {% endblock %}

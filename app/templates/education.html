@@ -1,10 +1,7 @@
-{% extends "base.html" %}
-
-{% block title %}Education — {{ profile.name }}{% endblock %}
-{% block og_title %}Education — {{ profile.name }}{% endblock %}
-{% block og_description %}Academic background and qualifications of {{ profile.name }}.{% endblock %}
-
-{% block desktop_content %}
+{% extends "base.html" %} {% block title %}Education — {{ profile.name }}{%
+endblock %} {% block og_title %}Education — {{ profile.name }}{% endblock %} {%
+block og_description %}Academic background and qualifications of {{ profile.name
+}}.{% endblock %} {% block desktop_content %}
 <gessi-window
     id="education"
     title="Education"
@@ -14,7 +11,8 @@
     status="{{ education|length }} academic record"
     active
     draggable
-    zoomable>
+    zoomable
+>
     <gessi-toolbar slot="toolbar" label="Education commands">
         <a href="{{ url_for('experience') }}">Experience</a>
         <a href="mailto:{{ profile.email }}">Contact</a>
@@ -36,11 +34,24 @@
         <gessi-panel title="Engineering Focus">
             <gessi-tree>
                 <ul>
-                    <li>Computing
-                        <ul><li>Software Engineering</li><li>Computer Architecture</li></ul>
+                    <li>
+                        Computing
+                        <ul>
+                            <li>Software Engineering</li>
+                            <li>Computer Architecture</li>
+                            <li>Mobile Development</li>
+                            <li>Game Development</li>
+                            <li>Networks</li>
+                            <li>ML</li>
+                        </ul>
                     </li>
-                    <li>Electronics
-                        <ul><li>Digital Systems</li><li>Embedded Systems</li></ul>
+                    <li>
+                        Electronics
+                        <ul>
+                            <li>Digital Systems</li>
+                            <li>Embedded Systems</li>
+                            <li>Signal Processing</li>
+                        </ul>
                     </li>
                 </ul>
             </gessi-tree>
@@ -61,12 +72,16 @@
     y="420px"
     width="280px"
     draggable
-    minimizable>
+    minimizable
+>
     <gessi-list aria-label="Coursework">
-        <button type="button" selected>Embedded Systems</button>
-        <button type="button">Digital Electronics</button>
+        <button type="button" selected>Algorithms</button>
+        <button type="button">Databases</button>
+        <button type="button">Data Structures</button>
         <button type="button">Software Engineering</button>
         <button type="button">Computer Architecture</button>
+        <button type="button">Mobile Development</button>
+        <button type="button">ML</button>
     </gessi-list>
 </gessi-window>
 {% endblock %}

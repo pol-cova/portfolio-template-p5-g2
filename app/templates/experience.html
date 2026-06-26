@@ -1,10 +1,7 @@
-{% extends "base.html" %}
-
-{% block title %}Experience — {{ profile.name }}{% endblock %}
-{% block og_title %}Experience — {{ profile.name }}{% endblock %}
-{% block og_description %}Work history and professional experience of {{ profile.name }}.{% endblock %}
-
-{% block desktop_content %}
+{% extends "base.html" %} {% block title %}Experience — {{ profile.name }}{%
+endblock %} {% block og_title %}Experience — {{ profile.name }}{% endblock %} {%
+block og_description %}Work history and professional experience of {{
+profile.name }}.{% endblock %} {% block desktop_content %}
 <gessi-window
     id="experience"
     title="Experience"
@@ -16,7 +13,8 @@
     active
     draggable
     resizable
-    zoomable>
+    zoomable
+>
     <gessi-toolbar slot="toolbar" label="Experience commands">
         <a href="{{ url_for('home') }}">← Home</a>
         <a href="mailto:{{ profile.email }}">Request résumé</a>
@@ -32,7 +30,7 @@
         <article>
             <div class="portfolio-grid">
                 <div>
-                    <strong>{{ job.period }}</strong><br>
+                    <strong>{{ job.period }}</strong><br />
                     {{ job.type }}
                 </div>
                 <div>
@@ -60,17 +58,32 @@
     y="410px"
     width="250px"
     draggable
-    minimizable>
+    minimizable
+>
     <gessi-tree>
         <ul>
-            <li>Software
-                <ul><li>Swift / iOS</li><li>Python / Flask</li></ul>
+            <li>
+                Software
+                <ul>
+                    <li>Swift / iOS</li>
+                    <li>Python</li>
+                    <li>C++</li>
+                    <li>TypeScript</li>
+                </ul>
             </li>
-            <li>Hardware
-                <ul><li>Electronics</li><li>Embedded systems</li></ul>
+            <li>
+                Hardware
+                <ul>
+                    <li>Electronics</li>
+                    <li>Embedded systems</li>
+                </ul>
             </li>
-            <li>Product
-                <ul><li>Interface design</li><li>Prototyping</li></ul>
+            <li>
+                Product
+                <ul>
+                    <li>UX/UI design</li>
+                    <li>Prototyping</li>
+                </ul>
             </li>
         </ul>
     </gessi-tree>
