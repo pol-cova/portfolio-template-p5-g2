@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Apps — {{ profile.name }}{% endblock %}
+{% block og_title %}Apps — {{ profile.name }}{% endblock %}
+{% block og_description %}Selected applications and open-source projects by {{ profile.name }}.{% endblock %}
+
+{% block desktop_content %}
+<gessi-window
+    id="apps"
+    title="Applications"
+    x="13%"
+    y="42px"
+    width="720px"
+    height="300px"
+    status="{{ apps|length }} applications · double-click to explore"
+    active
+    draggable
+    resizable
+    zoomable>
+    <gessi-toolbar slot="toolbar" label="Application controls">
+        <a href="{{ profile.socials[1].href }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:{{ profile.email }}">Contact Developer</a>
+        <gessi-tooltip text="Projects are configured in app/data.yml">
+            <button type="button">Info</button>
+        </gessi-tooltip>
+    </gessi-toolbar>
+
+    <gessi-icons class="portfolio-app-directory">
+        {% for app_item in apps %}
+        <gessi-icon
+            href="{{ app_item.href }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            src="{{ url_for('static', filename='img/' + app_item.image) }}"
+            label="{{ app_item.name }}">
+        </gessi-icon>
+        {% endfor %}
+    </gessi-icons>
+</gessi-window>
+
+<gessi-window
+    id="app-showcase"
+    title="App Showcase"
+    x="52%"
+    y="300px"
+    width="500px"
+    height="280px"
+    padding="0"
+    layer="20"
+    draggable
+    minimizable>
+    <gessi-carousel aria-label="Application showcase">
+        {% for app_item in apps %}
+        <article class="portfolio-app-card">
+            <gessi-media
+                src="{{ url_for('static', filename='img/' + app_item.image) }}"
+                alt="{{ app_item.name }} application icon"
+                effect="pixel"
+                aspect="1 / 1">
+            </gessi-media>
+            <div class="portfolio-stack">
+                <div>
+                    <strong>{{ app_item.name }}</strong>
+                    <p>{{ app_item.stack }}</p>
+                </div>
+                <p class="portfolio-copy">{{ app_item.description }}</p>
+                <a href="{{ app_item.href }}" target="_blank" rel="noopener noreferrer">Open project →</a>
+            </div>
+        </article>
+        {% endfor %}
+    </gessi-carousel>
+</gessi-window>
+
+<gessi-toast title="Applications loaded" position="bottom-right" dismissible>
+    Select an application icon or browse the showcase window.
+</gessi-toast>
+{% endblock %}

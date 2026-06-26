@@ -1,135 +1,420 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta property="og:title" content="{% block og_title %}Personal Portfolio{% endblock %}">
     <meta property="og:description" content="{% block og_description %}My Personal Portfolio{% endblock %}">
     <meta property="og:url" content="{{ request.url }}">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
-        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/pol-cova/gessi@main/dist/gessi.css"
+        data-gessi-styles>
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <title>{% block title %}{{ profile.name }}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
-    <link rel='icon' href="{{ url_for('static', filename='img/favicon.ico') }}" type='image/x-icon' />
-    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <style>
+        body {
+            background: #000;
+            display: grid;
+            margin: 0;
+            max-width: none;
+            min-height: 100vh;
+            padding: 0;
+            place-items: center;
+        }
+
+        gessi-desktop {
+            max-width: 100vw;
+            width: 1180px;
+        }
+
+        .portfolio-copy {
+            line-height: 1.55;
+            max-width: 68ch;
+        }
+
+        .portfolio-stack {
+            display: grid;
+            gap: 10px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .portfolio-list {
+            display: grid;
+            gap: 8px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .portfolio-list > li {
+            border-bottom: 1px solid #000;
+            padding-bottom: 8px;
+        }
+
+        .portfolio-list > li:last-child {
+            border-bottom: 0;
+        }
+
+        .portfolio-photo {
+            border: 1px solid #000;
+            height: 100%;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .portfolio-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            list-style: none;
+            margin: 8px 0 0;
+            padding: 0;
+        }
+
+        .portfolio-tags li {
+            border: 1px solid #000;
+            padding: 2px 6px;
+        }
+
+        .portfolio-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .portfolio-media-grid {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .portfolio-media-grid gessi-media {
+            min-width: 0;
+        }
+
+        .portfolio-map-layout {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: minmax(0, 1fr) 160px;
+        }
+
+        .portfolio-map-notes {
+            border-left: 1px solid currentColor;
+            padding-left: 10px;
+        }
+
+        .portfolio-carousel-card {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 130px minmax(0, 1fr);
+            padding: 8px;
+        }
+
+        .portfolio-carousel-card gessi-media {
+            min-width: 0;
+        }
+
+        .portfolio-system-grid {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .portfolio-thread {
+            display: grid;
+            gap: 12px;
+        }
+
+        .portfolio-thread article {
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 12px;
+        }
+
+        .portfolio-thread article:last-child {
+            border-bottom: 0;
+        }
+
+        .gs-desktop-icons .gs-icon img {
+            height: 72%;
+            width: 72%;
+        }
+
+        .portfolio-app-directory {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .portfolio-app-directory gessi-icon {
+            min-width: 0;
+        }
+
+        .portfolio-app-card {
+            display: grid;
+            gap: 12px;
+            grid-template-columns: 150px minmax(0, 1fr);
+            padding: 10px;
+        }
+
+        .portfolio-app-card gessi-media {
+            min-width: 0;
+        }
+
+        .easter-game {
+            display: grid;
+            gap: 10px;
+        }
+
+        .easter-game-status {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .easter-game-grid {
+            display: grid;
+            gap: 5px;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .easter-game-cell {
+            aspect-ratio: 1;
+            background: #fff !important;
+            border: 1px solid #000 !important;
+            color: #000 !important;
+            min-height: 54px;
+            padding: 0 !important;
+        }
+
+        .easter-game-cell.is-target {
+            background: #000 !important;
+            color: #fff !important;
+        }
+
+        @media (max-width: 719px) {
+            body {
+                background: #fff;
+            }
+
+            .portfolio-grid,
+            .portfolio-media-grid,
+            .portfolio-map-layout,
+            .portfolio-carousel-card,
+            .portfolio-system-grid,
+            .portfolio-app-directory {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-app-card {
+                grid-template-columns: 96px minmax(0, 1fr);
+            }
+
+            .portfolio-map-notes {
+                border-left: 0;
+                border-top: 1px solid currentColor;
+                padding-left: 0;
+                padding-top: 10px;
+            }
+
+            gessi-toast {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <header class="nav-bar">
-        <div class="nav-content container">
-            <a href="{{ url_for('home') }}" class="logo-touch-target">
-                <div class="nav-logo">
-                    <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="{{ profile.name }} logo">
-                </div>
-            </a>
+    <gessi-desktop
+        theme="classic-os"
+        background="#98d7c2"
+        pattern="noise"
+        pattern-color="#000"
+        pattern-size="7px"
+        style="--gs-desktop-height: 760px">
 
-            <nav>
-                <ul class="navbar-links">
-                    {% for link in nav_links %}
-                    <li>
-                        <a href="{{ link.href }}" class="navbar-link {% if request.path == link.href %}is-active{% endif %}">
-                            {{ link.label }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </nav>
+        <nav slot="menu" aria-label="Main navigation">
+            <strong>⌘ {{ profile.first_name }} OS</strong>
+            <gessi-menu label="File">
+                <a href="{{ url_for('home') }}">Open Home</a>
+                <a href="{{ url_for('experience') }}">Open Experience</a>
+                <a href="{{ url_for('education_page') }}">Open Education</a>
+                <a href="{{ url_for('hobbies_page') }}">Open Hobbies</a>
+                <a href="{{ url_for('travel') }}">Open Travel</a>
+                <a href="{{ url_for('apps_page') }}">Open Apps</a>
+            </gessi-menu>
+            <gessi-menu label="View">
+                <button type="button" data-gessi-pattern="noise">Noise Desktop</button>
+                <button type="button" data-gessi-pattern="dots">Dot Desktop</button>
+                <button type="button" data-gessi-pattern="grid">Grid Desktop</button>
+            </gessi-menu>
+            {% for link in nav_links %}<a href="{{ link.href }}">{{ link.label }}</a>{% endfor %}
+            <a href="mailto:{{ profile.email }}">Contact</a>
+            <span class="gs-menubar-end">{{ current_year }}</span>
+        </nav>
 
-            <button type="button" class="navbar-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
-                <svg class="icon icon-md" id="iconMenu" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
-                <svg class="icon icon-md" id="iconClose" viewBox="0 0 24 24" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </button>
-        </div>
+        <gessi-icons desktop side="left">
+            {% for link in nav_links %}
+            <gessi-icon
+                href="{{ link.href }}"
+                src="{{ url_for('static', filename='img/icons/' + link.icon) }}"
+                label="{{ link.label }}">
+            </gessi-icon>
+            {% endfor %}
+            <span class="gs-desktop-icon">
+                <button
+                    class="gs-icon-action"
+                    id="gameLauncher"
+                    type="button"
+                    onclick="document.getElementById('easter-game').hidden = false">
+                    <span class="gs-icon" aria-hidden="true">
+                        <img src="{{ url_for('static', filename='img/icons/warning.svg') }}" alt="">
+                    </span>
+                    <span>Do Not Click</span>
+                </button>
+            </span>
+        </gessi-icons>
 
-        <div class="navbar-mobile" id="navMobile">
-            <ul class="navbar-mobile-list container">
-                {% for link in nav_links %}
-                <li>
-                    <a href="{{ link.href }}" class="navbar-mobile-link {% if request.path == link.href %}is-active{% endif %}">
-                        {{ link.label }}
-                    </a>
-                </li>
+        {% block desktop_content %}{% endblock %}
+
+        <gessi-dialog id="contact" title="Contact {{ profile.first_name }}" width="360px" hidden>
+            <p>Send me a message or find me elsewhere.</p>
+            <div class="portfolio-actions">
+                <a href="mailto:{{ profile.email }}">Email</a>
+                {% for social in profile.socials %}
+                <a href="{{ social.href }}" target="_blank" rel="noopener noreferrer">{{ social.label }}</a>
                 {% endfor %}
-                <li class="navbar-mobile-cta">
-                    <a href="mailto:{{ profile.email }}">Get in touch</a>
-                </li>
-            </ul>
-        </div>
-    </header>
-
-    {% block profile_block %}
-    <div class="profile">
-        <div id="profile-picture" class="profile-picture">
-            <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Portrait of {{ profile.name }}">
-        </div>
-        <h1>{{ title }}</h1>
-    </div>
-    {% endblock %}
-
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-inner container">
-            <div class="footer-top">
-                <div class="footer-connect">
-                    <p class="eyebrow" style="letter-spacing:0.2em;">Let's connect</p>
-                    <a href="mailto:{{ profile.email }}" class="footer-email">{{ profile.email }}</a>
-                    <p class="footer-note">
-                        Based in {{ profile.location }}. Open to design work, collaborations, and trail recommendations.
-                    </p>
-                </div>
-
-                <div class="footer-cols">
-                    <div>
-                        <p class="footer-col-title">Pages</p>
-                        <ul class="footer-col-list">
-                            {% for link in nav_links %}
-                            <li><a href="{{ link.href }}">{{ link.label }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
-                    <div>
-                        <p class="footer-col-title">Elsewhere</p>
-                        <ul class="footer-col-list">
-                            {% for social in profile.socials %}
-                            <li><a href="{{ social.href }}" target="_blank" rel="noopener noreferrer">{{ social.label }}</a></li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
             </div>
+        </gessi-dialog>
 
-            <div class="footer-bottom">
-                <p>&copy; {{ current_year }} {{ profile.name }}. All rights reserved.</p>
-                <p class="tagline">Designed &amp; built with care</p>
-            </div>
-        </div>
-    </footer>
+        <gessi-dialog id="easter-game" title="Bug Hunt.app" width="340px" hidden>
+            <section class="easter-game">
+                <p>Catch the bug before the system timer reaches zero.</p>
+                <div class="easter-game-status" aria-live="polite">
+                    <strong>Score: <output id="gameScore">0</output></strong>
+                    <strong>Time: <output id="gameTime">20</output>s</strong>
+                </div>
+                <div class="easter-game-grid" id="gameGrid" aria-label="Bug Hunt game board">
+                    {% for cell in range(9) %}
+                    <button class="easter-game-cell" type="button" aria-label="Empty game cell"></button>
+                    {% endfor %}
+                </div>
+                <button type="button" id="gameStart">Start Game</button>
+                <gessi-alert id="gameMessage" title="System message">
+                    <span id="gameMessageText">Press Start Game to begin.</span>
+                </gessi-alert>
+            </section>
+        </gessi-dialog>
 
+        <gessi-icons desktop side="right">
+            <gessi-icon
+                action="open:#contact"
+                onclick="document.getElementById('contact').hidden = false"
+                src="{{ url_for('static', filename='img/icons/contact.svg') }}"
+                label="Contact">
+            </gessi-icon>
+            <gessi-icon
+                href="{{ url_for('home') }}#about"
+                src="{{ url_for('static', filename='img/icons/about.svg') }}"
+                label="About">
+            </gessi-icon>
+        </gessi-icons>
+    </gessi-desktop>
+
+    <script
+        type="module"
+        src="https://cdn.jsdelivr.net/gh/pol-cova/gessi@main/dist/gessi.js"></script>
     <script>
-        const navToggle = document.getElementById('navToggle');
-        const navMobile = document.getElementById('navMobile');
-        const iconMenu = document.getElementById('iconMenu');
-        const iconClose = document.getElementById('iconClose');
+        const gameDialog = document.getElementById('easter-game');
+        const gameCells = [...document.querySelectorAll('.easter-game-cell')];
+        const gameScore = document.getElementById('gameScore');
+        const gameTime = document.getElementById('gameTime');
+        const gameStart = document.getElementById('gameStart');
+        const gameMessage = document.getElementById('gameMessage');
+        const gameMessageText = document.getElementById('gameMessageText');
+        const gameLauncher = document.getElementById('gameLauncher');
 
-        navToggle.addEventListener('click', () => {
-            const isOpen = navMobile.classList.toggle('is-open');
-            navToggle.setAttribute('aria-expanded', isOpen);
-            navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-            iconMenu.style.display = isOpen ? 'none' : 'block';
-            iconClose.style.display = isOpen ? 'block' : 'none';
+        let activeCell = -1;
+        let score = 0;
+        let timeLeft = 20;
+        let gameTimer;
+        let targetTimer;
+
+        function clearTarget() {
+            gameCells.forEach((cell) => {
+                cell.classList.remove('is-target');
+                cell.textContent = '';
+                cell.setAttribute('aria-label', 'Empty game cell');
+            });
+            activeCell = -1;
+        }
+
+        function moveTarget() {
+            clearTarget();
+            activeCell = Math.floor(Math.random() * gameCells.length);
+            const target = gameCells[activeCell];
+            target.classList.add('is-target');
+            target.textContent = 'BUG';
+            target.setAttribute('aria-label', 'Catch the bug');
+        }
+
+        function stopGame(message) {
+            clearInterval(gameTimer);
+            clearInterval(targetTimer);
+            clearTarget();
+            gameStart.disabled = false;
+            gameStart.textContent = 'Play Again';
+            gameMessageText.textContent = message;
+        }
+
+        function startGame() {
+            clearInterval(gameTimer);
+            clearInterval(targetTimer);
+            score = 0;
+            timeLeft = 20;
+            gameScore.value = score;
+            gameTime.value = timeLeft;
+            gameStart.disabled = true;
+            gameMessageText.textContent = 'Bug detected. Catch it!';
+            moveTarget();
+
+            targetTimer = setInterval(moveTarget, 700);
+            gameTimer = setInterval(() => {
+                timeLeft -= 1;
+                gameTime.value = timeLeft;
+                if (timeLeft <= 0) {
+                    stopGame(`Scan complete. Final score: ${score}.`);
+                }
+            }, 1000);
+        }
+
+        gameCells.forEach((cell, index) => {
+            cell.addEventListener('click', () => {
+                if (index !== activeCell || gameStart.disabled === false) return;
+                score += 1;
+                gameScore.value = score;
+                moveTarget();
+            });
+        });
+
+        gameStart.addEventListener('click', startGame);
+        gameLauncher.addEventListener('click', () => {
+            gameDialog.hidden = false;
+            gameDialog.focusWindow?.();
+        });
+        gameDialog.addEventListener('gs-close', () => {
+            clearInterval(gameTimer);
+            clearInterval(targetTimer);
+            clearTarget();
+            gameStart.disabled = false;
         });
     </script>
-
     {% block scripts %}{% endblock %}
 </body>
-
 </html>

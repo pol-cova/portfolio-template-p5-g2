@@ -44,5 +44,10 @@ def travel():
     return render_template("travel.html")
 
 
+@app.route("/apps")
+def apps_page():
+    return render_template("apps.html")
+
+
 if __name__ == "__main__":
     app.run()

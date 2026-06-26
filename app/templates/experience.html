@@ -4,43 +4,75 @@
 {% block og_title %}Experience — {{ profile.name }}{% endblock %}
 {% block og_description %}Work history and professional experience of {{ profile.name }}.{% endblock %}
 
-{% block profile_block %}
-<header class="page-header">
-  <div class="container page-header-inner">
-    <p class="eyebrow">Where I've worked</p>
-    <h1 class="page-title">Experience</h1>
-    <p class="page-description">
-      Eight years across startups, agencies, and my own studio — designing products people actually want to use.
-    </p>
-  </div>
-</header>
-{% endblock %}
+{% block desktop_content %}
+<gessi-window
+    id="experience"
+    title="Experience"
+    x="16%"
+    y="46px"
+    width="820px"
+    height="530px"
+    status="{{ experiences|length }} roles · {{ marquee_items|length }} skill areas"
+    active
+    draggable
+    resizable
+    zoomable>
+    <gessi-toolbar slot="toolbar" label="Experience commands">
+        <a href="{{ url_for('home') }}">← Home</a>
+        <a href="mailto:{{ profile.email }}">Request résumé</a>
+    </gessi-toolbar>
+    <gessi-tabs>
+        <button type="button" active>Work History</button>
+        <button type="button">Skills</button>
+        <button type="button">Notes</button>
+    </gessi-tabs>
 
-{% block content %}
-<section class="container timeline">
-  <ol>
-    {% for job in experiences %}
-    <li class="timeline-item">
-      <div class="timeline-meta">
-        <span class="timeline-period">{{ job.period }}</span>
-        <span class="timeline-type">{{ job.type }}</span>
-      </div>
+    <section class="portfolio-thread" aria-label="Work history">
+        {% for job in experiences %}
+        <article>
+            <div class="portfolio-grid">
+                <div>
+                    <strong>{{ job.period }}</strong><br>
+                    {{ job.type }}
+                </div>
+                <div>
+                    <h2>{{ job.role }}</h2>
+                    <p><strong>{{ job.company }}</strong></p>
+                    <p class="portfolio-copy">{{ job.description }}</p>
+                    <ul class="portfolio-tags">
+                        {% for tag in job.tags %}
+                        <li>{{ tag }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </article>
+        {% else %}
+        <article>No experience listed yet.</article>
+        {% endfor %}
+    </section>
+</gessi-window>
 
-      <div>
-        <h2 class="timeline-role">{{ job.role }}</h2>
-        <p class="timeline-company">{{ job.company }}</p>
-        <p class="timeline-description">{{ job.description }}</p>
-
-        <ul class="tag-list">
-          {% for tag in job.tags %}
-          <li class="tag-pill">{{ tag }}</li>
-          {% endfor %}
+<gessi-window
+    id="skills"
+    title="Skills.tree"
+    x="70%"
+    y="410px"
+    width="250px"
+    draggable
+    minimizable>
+    <gessi-tree>
+        <ul>
+            <li>Software
+                <ul><li>Swift / iOS</li><li>Python / Flask</li></ul>
+            </li>
+            <li>Hardware
+                <ul><li>Electronics</li><li>Embedded systems</li></ul>
+            </li>
+            <li>Product
+                <ul><li>Interface design</li><li>Prototyping</li></ul>
+            </li>
         </ul>
-      </div>
-    </li>
-    {% else %}
-    <li class="text-muted">No experience listed yet.</li>
-    {% endfor %}
-  </ol>
-</section>
+    </gessi-tree>
+</gessi-window>
 {% endblock %}

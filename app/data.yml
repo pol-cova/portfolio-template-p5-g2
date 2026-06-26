@@ -5,7 +5,8 @@ profile:
   role: "Computer and Electronics Engineer Student"
   location: "Guadalajara, Mexico"
   email: "paul@paulcontre.com"
-  tagline: "Computer and Electronics Engineer Student"
+  tagline: "I just love building things :)"
+  fun_fact: "I love the coffee :0"
   socials:
     - label: "LinkedIn"
       href: "https://www.linkedin.com/in/paul-contre"
@@ -19,18 +20,26 @@ profile:
 nav_links:
   - label: "Home"
     href: "/"
+    icon: "home.svg"
   - label: "Experience"
     href: "/experience"
+    icon: "experience.svg"
   - label: "Education"
     href: "/education"
+    icon: "education.svg"
   - label: "Hobbies"
     href: "/hobbies"
+    icon: "hobbies.svg"
   - label: "Travel"
     href: "/travel"
+    icon: "travel.svg"
+  - label: "Apps"
+    href: "/apps"
+    icon: "apps.svg"
 
 about_paragraphs:
   - "I'm Paul Contreras, a Computer and Electronics Engineer Student based in Guadalajara, Mexico."
-  - "I focus on electronics, embedded systems, and software development, building things that bridge the gap between hardware and software."
+  - "I really love doing things, and I'm always looking for new challenges, currently working on mobile apps and teaching competitve programming"
 
 marquee_items:
   - "Software Engineering"
@@ -45,24 +54,111 @@ experiences:
     role: "iOS Developer"
     company: "mkrz.studio"
     type: "Guadalajara, Mexico"
-    description: ""
-    tags: []
+    description: "Building native Apple-platform experiences with a focus on thoughtful interaction, maintainable SwiftUI, and product quality."
+    tags: ["Swift", "SwiftUI", "iOS"]
 
   - period: "2024 — 2026"
     role: "Software Engineer"
     company: "CUValles Software Development Lab"
     type: "Guadalajara, Mexico"
-    description: ""
-    tags: []
+    description: "Developed software projects that connected academic research, practical engineering, and real user needs."
+    tags: ["Python", "Flask", "Engineering"]
 
 education:
   - period: "2022 — 2026"
     degree: "Computer and Electronics Engineer"
     school: "Universidad de Guadalajara"
     location: "Guadalajara, Mexico"
-    description: ""
-    highlights: []
+    description: "Coursework and projects spanning software engineering, digital electronics, embedded systems, and computer architecture."
+    highlights: ["Embedded Systems", "Electronics", "Software"]
 
-hobbies: []
+hobbies:
+  - title: "Hiking"
+    image: "hobby-hiking.png"
+    accent: "Trails and mountain air"
+    effect: "pixel"
+    description: "Long walks, steep climbs, and the occasional early start for a better view."
+  - title: "Photography"
+    image: "hobby-photography.png"
+    accent: "Light, geometry, and places"
+    effect: "dither"
+    description: "Documenting details, architecture, and travel moments through a camera."
+  - title: "Cooking"
+    image: "hobby-cooking.png"
+    accent: "Experiments from the kitchen"
+    effect: "halftone"
+    description: "Learning recipes by making them, adjusting them, and sharing the results."
+  - title: "Vinyl"
+    image: "hobby-vinyl.png"
+    accent: "Albums from beginning to end"
+    effect: "scanlines"
+    description: "Collecting records and making time to listen without skipping around."
 
-trips: []
+trips:
+  - country: "Iceland"
+    city: "Reykjavík"
+    year: "2024"
+    code: "IS"
+    lat: 64.1466
+    lon: -21.9426
+    image: "travel-iceland.png"
+    note: "Black-sand coastlines, geothermal landscapes, and very long summer light."
+  - country: "Italy"
+    city: "Rome"
+    year: "2023"
+    code: "IT"
+    lat: 41.9028
+    lon: 12.4964
+    image: "travel-italy.png"
+    note: "Layers of history, walkable streets, and a lot of memorable food."
+  - country: "Japan"
+    city: "Tokyo"
+    year: "2023"
+    code: "JP"
+    lat: 35.6762
+    lon: 139.6503
+    image: "travel-japan.png"
+    note: "Dense city systems, quiet neighborhoods, and exceptional attention to detail."
+  - country: "Morocco"
+    city: "Marrakesh"
+    year: "2022"
+    code: "MA"
+    lat: 31.6295
+    lon: -7.9811
+    image: "travel-morocco.png"
+    note: "Color, texture, markets, courtyards, and a completely different urban rhythm."
+  - country: "Peru"
+    city: "Cusco"
+    year: "2022"
+    code: "PE"
+    lat: -13.5319
+    lon: -71.9675
+    image: "travel-peru.png"
+    note: "High-altitude streets, mountain routes, and remarkable stonework."
+
+apps:
+  - name: "Gessi"
+    image: "apps/gessi.svg"
+    stack: "CSS · Web Components"
+    href: "https://github.com/pol-cova/gessi"
+    description: "A dependency-free library for expressive HTML, retro interfaces, and browser-based desktop environments."
+  - name: "RazerControl"
+    image: "apps/razer-control.svg"
+    stack: "Swift · macOS"
+    href: "https://github.com/pol-cova/RazerControl"
+    description: "An unofficial macOS menu bar app for controlling Razer mouse DPI, lighting, and button mappings."
+  - name: "LaunchNotes"
+    image: "apps/launch-notes.svg"
+    stack: "SwiftUI · iOS · macOS"
+    href: "https://github.com/pol-cova/LaunchNotes"
+    description: "A SwiftUI package for presenting native-feeling release notes and What’s New screens."
+  - name: "Scope"
+    image: "apps/scope.svg"
+    stack: "Chrome Extension · JavaScript"
+    href: "https://github.com/pol-cova/Scope"
+    description: "A browser extension that opens relevant documentation for highlighted words without leaving the page."
+  - name: "UCM"
+    image: "apps/ucm.svg"
+    stack: "React · Canvas 2D"
+    href: "https://github.com/pol-cova/UCM"
+    description: "An interactive uniform circular motion simulator for visualizing vectors and physics concepts."

@@ -4,63 +4,101 @@
 {% block og_title %}Travel Diary — {{ profile.name }}{% endblock %}
 {% block og_description %}Notes from {{ profile.first_name }}'s trips around the world.{% endblock %}
 
-{% block profile_block %}
-<header class="page-header">
-  <div class="container page-header-inner">
-    <p class="eyebrow">Where I've been</p>
-    <h1 class="page-title">Travel Diary</h1>
-    <p class="page-description">
-      A running log of trips, with a few notes from each one.
-    </p>
-  </div>
-</header>
-{% endblock %}
+{% block desktop_content %}
+<gessi-window
+    id="travel-map"
+    title="World Map"
+    x="9%"
+    y="42px"
+    width="720px"
+    height="430px"
+    padding="8px"
+    status="{{ trips|length }} destinations plotted"
+    active
+    draggable
+    resizable
+    zoomable>
+    <gessi-toolbar slot="toolbar" label="Map controls">
+        <button data-gessi-pattern="grid">Grid Desktop</button>
+        <button data-gessi-pattern="noise">Noise Desktop</button>
+        <gessi-tooltip text="Markers use latitude and longitude from data.yml">
+            <button type="button">Map Info</button>
+        </gessi-tooltip>
+    </gessi-toolbar>
 
-{% block content %}
-<section class="travel-map-section">
-  <div class="container">
-    <p class="eyebrow">Where I've been</p>
-    <div class="travel-map-frame">
-      {% include "_world_map.svg" %}
-      {% for trip in trips %}
-        {% set left = (trip.lon + 180) / 360 * 100 %}
-        {% set top = (90 - trip.lat) / 180 * 100 %}
-        <span class="travel-map-pin" style="left:{{ left }}%; top:{{ top }}%;"></span>
-        <span class="travel-map-pin-label" style="left:{{ left }}%; top:{{ top }}%;">{{ trip.country }}</span>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+    <section class="portfolio-map-layout">
+        <gessi-map
+            src="{{ url_for('static', filename='img/mappa.png') }}"
+            alt="Monochrome world map showing Paul's travel destinations"
+            caption="Travel archive · {{ trips|length }} destinations"
+            effect="mono"
+            fit="contain"
+            style="--gs-map-height: 310px">
+            {% for trip in trips %}
+            {% set marker_x = (trip.lon + 180) / 360 * 100 %}
+            {% set marker_y = (90 - trip.lat) / 180 * 100 %}
+            <gessi-marker
+                x="{{ marker_x }}%"
+                y="{{ marker_y }}%"
+                label="{{ trip.city }}, {{ trip.country }}">
+                {{ trip.code }}
+            </gessi-marker>
+            {% endfor %}
+        </gessi-map>
 
-<section class="diary-section">
-  <div class="container">
-    <div class="diary-heading-row">
-      <h2 class="diary-heading">Trip log</h2>
-      <p class="diary-count">{{ trips|length }} trips logged</p>
-    </div>
+        <aside class="portfolio-map-notes">
+            <strong>Destinations</strong>
+            <gessi-tree>
+                <ul>
+                    <li>Europe
+                        <ul><li>Iceland</li><li>Italy</li></ul>
+                    </li>
+                    <li>Asia
+                        <ul><li>Japan</li></ul>
+                    </li>
+                    <li>Africa
+                        <ul><li>Morocco</li></ul>
+                    </li>
+                    <li>Americas
+                        <ul><li>Peru</li></ul>
+                    </li>
+                </ul>
+            </gessi-tree>
+        </aside>
+    </section>
+</gessi-window>
 
-    <div class="diary-list">
-      {% for trip in trips %}
-      <article class="diary-entry">
-        <div class="diary-entry-media">
-          <img src="{{ url_for('static', filename='img/' + trip.image) }}" alt="{{ trip.country }}">
-        </div>
+<gessi-window
+    id="trip-log"
+    title="Travel Stories"
+    x="58%"
+    y="430px"
+    width="420px"
+    height="245px"
+    padding="0"
+    draggable>
+    <gessi-carousel aria-label="Travel stories">
+        {% for trip in trips %}
+        <article class="portfolio-carousel-card">
+            <gessi-media
+                    src="{{ url_for('static', filename='img/' + trip.image) }}"
+                    alt="{{ trip.country }}"
+                    effect="dither"
+                    aspect="4 / 3">
+            </gessi-media>
+            <div>
+                <strong>{{ trip.country }} — {{ trip.year }}</strong>
+                <p>{{ trip.city }}</p>
+                <p class="portfolio-copy">{{ trip.note }}</p>
+            </div>
+        </article>
+        {% else %}
+        <article class="portfolio-carousel-card">No trips logged yet.</article>
+        {% endfor %}
+    </gessi-carousel>
+</gessi-window>
 
-        <div>
-          <div class="diary-entry-top">
-            <span class="diary-entry-index">{{ "%02d"|format(loop.index) }}</span>
-            <span class="diary-entry-year">{{ trip.year }}</span>
-          </div>
-
-          <h3 class="diary-entry-country">{{ trip.country }}</h3>
-          <p class="diary-entry-city">{{ trip.city }}</p>
-          <p class="diary-entry-note">{{ trip.note }}</p>
-        </div>
-      </article>
-      {% else %}
-      <p class="text-muted">No trips logged yet.</p>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+<gessi-toast title="Travel map ready" position="bottom-right" dismissible>
+    Map markers, destination tree, and travel carousel are active.
+</gessi-toast>
 {% endblock %}
