@@ -3,9 +3,20 @@ from datetime import datetime
 
 import yaml
 from flask import Flask, render_template
+from peewee import MySQLDatabase
 
 app = Flask(__name__)
 app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", 0)
+
+mydb = MySQLDatabase(
+    os.environ.get("MYSQL_DATABASE"),
+    user=os.environ.get("MYSQL_USER"),
+    password=os.environ.get("MYSQL_PASSWORD"),
+    host=os.environ.get("MYSQL_HOST"),
+    port=3306,
+)
+
+print(mydb)
 
 
 @app.context_processor
