@@ -1,0 +1,22 @@
+{% for post in posts %}
+<gessi-entry status="published">
+    <article class="journal-entry" id="post-{{ post.id }}">
+        <p class="gs-file-meta">
+            <time datetime="{{ post.created_at.strftime('%Y-%m-%d') }}">{{ post.created_at.strftime('%B %-d, %Y') }}</time>
+        </p>
+        <h2 class="journal-author">
+            <img
+                class="journal-avatar"
+                src="https://www.gravatar.com/avatar/{{ post.email|gravatar_hash }}?s=48&d=identicon"
+                alt=""
+                width="24"
+                height="24">
+            <a href="/timeline#post-{{ post.id }}">{{ post.name }}</a>
+            <span class="journal-email">({{ post.email }})</span>
+        </h2>
+        <p class="journal-content">{{ post.content }}</p>
+    </article>
+</gessi-entry>
+{% else %}
+<p class="journal-empty">No journal entries yet.</p>
+{% endfor %}

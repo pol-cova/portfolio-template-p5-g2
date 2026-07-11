@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Timeline — {{ profile.name }}{% endblock %}
+{% block og_title %}Timeline — {{ profile.name }}{% endblock %}
+{% block og_description %}What {{ profile.first_name }} gets up to outside of work.{% endblock %}
+
+{% block desktop_content %}
+<gessi-window
+    id="timeline"
+    title="Timeline"
+    x="10%"
+    y="54px"
+    width="580px"
+    status="Timeline posts"
+    active
+    draggable
+    zoomable
+>
+    <gessi-toolbar slot="toolbar" label="Timeline commands">
+        <a href="{{ url_for('home') }}">Home</a>
+    </gessi-toolbar>
+
+    <div class="portfolio-stack">
+        <gessi-timeline id="journal-feed" aria-label="Journal">
+            {% include "partials/_timeline_posts.html" %}
+        </gessi-timeline>
+    </div>
+</gessi-window>
+
+<gessi-window
+    id="timeline-new-post"
+    title="New Post"
+    x="64%"
+    y="54px"
+    width="320px"
+    draggable
+    minimizable
+>
+    <form action="/api/timeline_post" method="post"
+          hx-post="/api/timeline_post"
+          hx-target="#journal-feed"
+          hx-swap="afterbegin"
+          hx-on::after-request="if (event.detail.successful) this.reset()">
+        <gessi-form columns="1">
+            <label class="gs-label">Name
+                <input class="gs-field" name="name" type="text" required>
+            </label>
+            <label class="gs-label">Email
+                <input class="gs-field" name="email" type="email" autocomplete="email" required>
+            </label>
+            <label class="gs-label">Content
+                <textarea class="gs-field timeline-content-field" name="content" rows="7" required></textarea>
+            </label>
+            <div class="gs-form-actions">
+                <button class="timeline-publish-button" type="submit">Publish</button>
+            </div>
+        </gessi-form>
+    </form>
+</gessi-window>
+{% endblock %}
