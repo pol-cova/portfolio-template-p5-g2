@@ -1,0 +1,298 @@
+body {
+    background: #000;
+    display: grid;
+    margin: 0;
+    max-width: none;
+    min-height: 100vh;
+    padding: 0;
+    place-items: center;
+}
+
+gessi-desktop {
+    max-width: 100vw;
+    width: 1180px;
+}
+
+.portfolio-copy {
+    line-height: 1.55;
+    max-width: 68ch;
+}
+
+.portfolio-stack {
+    display: grid;
+    gap: 10px;
+}
+
+.timeline-content-field {
+    min-height: 150px;
+    resize: vertical;
+    width: 100%;
+}
+
+.gs-form .timeline-publish-button {
+    appearance: none;
+    background: #fff !important;
+    border: 2px solid #000 !important;
+    border-radius: 0 !important;
+    box-shadow: 3px 3px 0 #000 !important;
+    color: #000 !important;
+    cursor: pointer;
+    font: inherit;
+    min-height: 32px;
+    padding: 4px 12px;
+}
+
+.gs-form .timeline-publish-button:hover,
+.gs-form .timeline-publish-button:focus-visible {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.gs-form .timeline-publish-button:active {
+    box-shadow: 1px 1px 0 #000 !important;
+    transform: translate(2px, 2px);
+}
+
+#journal-feed {
+    display: grid;
+    gap: 10px;
+}
+
+#journal-feed:not(:has(> gessi-entry))::before {
+    display: none;
+}
+
+.journal-entry {
+    overflow-wrap: anywhere;
+    padding-bottom: 4px;
+}
+
+.journal-author {
+    align-items: center;
+    display: flex;
+    font-size: 1.2rem;
+    gap: 7px;
+    line-height: 1.15;
+    margin: 0 0 6px;
+}
+
+.journal-avatar {
+    border: 1px solid currentColor;
+    flex: 0 0 24px;
+    image-rendering: pixelated;
+}
+
+.journal-email {
+    font-size: 0.72rem;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+}
+
+.journal-author a {
+    color: inherit;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+}
+
+.journal-content {
+    line-height: 1.45;
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.journal-empty {
+    margin: 0;
+}
+
+.portfolio-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.portfolio-list {
+    display: grid;
+    gap: 8px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.portfolio-list > li {
+    border-bottom: 1px solid #000;
+    padding-bottom: 8px;
+}
+
+.portfolio-list > li:last-child {
+    border-bottom: 0;
+}
+
+.portfolio-photo {
+    border: 1px solid #000;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.portfolio-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0;
+}
+
+.portfolio-tags li {
+    border: 1px solid #000;
+    padding: 2px 6px;
+}
+
+.portfolio-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.portfolio-media-grid {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.portfolio-media-grid gessi-media {
+    min-width: 0;
+}
+
+.portfolio-map-layout {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) 160px;
+}
+
+.portfolio-map-layout .gs-map-viewport {
+    aspect-ratio: 1651 / 953;
+    min-height: 0;
+}
+
+.portfolio-map-notes {
+    border-left: 1px solid currentColor;
+    padding-left: 10px;
+}
+
+.portfolio-carousel-card {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 130px minmax(0, 1fr);
+    padding: 8px;
+}
+
+.portfolio-carousel-card gessi-media {
+    min-width: 0;
+}
+
+.portfolio-system-grid {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.portfolio-thread {
+    display: grid;
+    gap: 12px;
+}
+
+.portfolio-thread article {
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 12px;
+}
+
+.portfolio-thread article:last-child {
+    border-bottom: 0;
+}
+
+.gs-desktop-icons .gs-icon img {
+    height: 72%;
+    width: 72%;
+}
+
+.portfolio-app-directory {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.portfolio-app-directory gessi-icon {
+    min-width: 0;
+}
+
+.portfolio-app-card {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 150px minmax(0, 1fr);
+    padding: 10px;
+}
+
+.portfolio-app-card gessi-media {
+    min-width: 0;
+}
+
+.easter-game {
+    display: grid;
+    gap: 10px;
+}
+
+.easter-game-status {
+    display: flex;
+    justify-content: space-between;
+}
+
+.easter-game-grid {
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.easter-game-cell {
+    aspect-ratio: 1;
+    background: #fff !important;
+    border: 1px solid #000 !important;
+    color: #000 !important;
+    min-height: 54px;
+    padding: 0 !important;
+}
+
+.easter-game-cell.is-target {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+@media (max-width: 719px) {
+    body {
+        background: #fff;
+    }
+
+    .portfolio-grid,
+    .portfolio-media-grid,
+    .portfolio-map-layout,
+    .portfolio-carousel-card,
+    .portfolio-system-grid,
+    .portfolio-app-directory {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-app-card {
+        grid-template-columns: 96px minmax(0, 1fr);
+    }
+
+    .portfolio-map-notes {
+        border-left: 0;
+        border-top: 1px solid currentColor;
+        padding-left: 0;
+        padding-top: 10px;
+    }
+
+    gessi-toast {
+        display: none;
+    }
+}

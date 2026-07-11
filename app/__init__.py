@@ -1,4 +1,5 @@
 import os
+import hashlib
 from datetime import datetime
 
 import yaml
@@ -9,6 +10,11 @@ from playhouse.shortcuts import model_to_dict
 
 app = Flask(__name__)
 app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", 0)
+
+@app.template_filter("gravatar_hash")
+def gravatar_hash(email):
+    normalized_email = (email or "").strip().lower().encode("utf-8")
+    return hashlib.md5(normalized_email).hexdigest()
 
 mydb = MySQLDatabase(
     os.environ.get("MYSQL_DATABASE"),
@@ -50,6 +56,9 @@ def post_timeline_post():
     email = request.form["email"]
     content = request.form["content"]
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
+
+    if request.headers.get("HX-Request"):
+        return render_template("partials/_timeline_posts.html", posts=[timeline_post])
 
     return model_to_dict(timeline_post)
 
@@ -110,6 +119,11 @@ def travel():
 @app.route("/apps")
 def apps_page():
     return render_template("apps.html")
+
+@app.route("/timeline")
+def timeline():
+    posts = TimelinePost.select().order_by(TimelinePost.created_at.desc())
+    return render_template("timeline.html", posts=posts)
 
 
 if __name__ == "__main__":

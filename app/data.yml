@@ -36,6 +36,9 @@ nav_links:
   - label: "Apps"
     href: "/apps"
     icon: "apps.svg"
+  - label: "Timeline"
+    href: "/timeline"
+    icon: "timeline.svg"
 
 about_paragraphs:
   - "I'm Paul Contreras, a Computer and Electronics Engineer Student based in Guadalajara, Mexico."
