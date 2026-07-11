@@ -2,8 +2,10 @@ import os
 from datetime import datetime
 
 import yaml
-from flask import Flask, render_template
-from peewee import MySQLDatabase
+from flask import Flask, render_template, request
+from peewee import CharField, DateTimeField, Model, MySQLDatabase, TextField
+from playhouse.shortcuts import model_to_dict
+
 
 app = Flask(__name__)
 app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", 0)
@@ -18,6 +20,17 @@ mydb = MySQLDatabase(
 
 print(mydb)
 
+class TimelinePost(Model):
+    name = CharField()
+    email = CharField()
+    content = TextField()
+    created_at = DateTimeField(default=datetime.now)
+
+    class Meta:
+        database = mydb
+
+mydb.connect()
+mydb.create_tables([TimelinePost])
 
 @app.context_processor
 def inject_globals():
@@ -30,6 +43,45 @@ def inject_globals():
     }
 
 
+# api routes
+@app.route("/api/timeline_post", methods=["POST"])
+def post_timeline_post():
+    name = request.form["name"]
+    email = request.form["email"]
+    content = request.form["content"]
+    timeline_post = TimelinePost.create(name=name, email=email, content=content)
+
+    return model_to_dict(timeline_post)
+
+@app.route("/api/timeline_post", methods=["GET"])
+def get_timeline_post():
+    return {
+        "timeline_posts": [
+            model_to_dict(p)
+            for p in
+            TimelinePost.select().order_by(TimelinePost.created_at.desc())
+        ]
+    }
+
+@app.route("/api/timeline_post/<int:id>", methods=["DELETE"])
+def delete_timeline_post(id):
+    q = TimelinePost.delete().where(getattr(TimelinePost, 'id') == id)
+    res = q.execute()
+
+    if res == 0:
+        return {"error": "Not found"}, 404
+
+    return {"message": "Post deleted Successfully"}, 204
+
+@app.route("/api/timeline_post", methods=["DELETE"])
+def delete_timeline_posts_by_name():
+    name = request.form.get("name")
+    if name:
+        TimelinePost.delete().where(TimelinePost.name == name).execute()
+        return {"message": f"Deleted posts by {name}"}, 200
+    return {"error": "Missing name"}, 400
+
+# web routes
 @app.route("/")
 def home():
     return render_template("index.html")
