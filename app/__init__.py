@@ -11,6 +11,7 @@ from playhouse.shortcuts import model_to_dict
 app = Flask(__name__)
 app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", 0)
 
+# helper function for gravatar hash (to render the gravatar image)
 @app.template_filter("gravatar_hash")
 def gravatar_hash(email):
     normalized_email = (email or "").strip().lower().encode("utf-8")
@@ -26,6 +27,7 @@ mydb = MySQLDatabase(
 
 print(mydb)
 
+# timeline schema
 class TimelinePost(Model):
     name = CharField()
     email = CharField()
@@ -72,6 +74,7 @@ def get_timeline_post():
         ]
     }
 
+# delete rute (for the curl test)
 @app.route("/api/timeline_post/<int:id>", methods=["DELETE"])
 def delete_timeline_post(id):
     q = TimelinePost.delete().where(getattr(TimelinePost, 'id') == id)
