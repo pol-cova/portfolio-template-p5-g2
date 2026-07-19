@@ -1,4 +1,6 @@
 import unittest
+from datetime import datetime
+
 from peewee import *
 
 from app import TimelinePost
@@ -18,7 +20,12 @@ class TestTimelinePost(unittest.TestCase):
         test_db.close()
 
     def test_timeline_post(self):
-        first_post = TimelinePost.create(name='John Doe', email='john@example.com', content='hello guys')
+        first_post = TimelinePost.create(name='John Doe', email='john@example.com', content='hello guys', created_at=datetime(2020, 1, 1))
         assert first_post.id == 1
-        second_post = TimelinePost.create(name='Jane Doe', email='jame@example.com', content='hello friends')
+        second_post = TimelinePost.create(name='Jane Doe', email='jame@example.com', content='hello friends', created_at=datetime(2020, 1, 2))
         assert second_post.id == 2
+
+        posts = list(TimelinePost.select().order_by(TimelinePost.created_at.desc()))
+        assert len(posts) == 2
+        assert posts[0].content == 'hello friends'
+        assert posts[1].content == 'hello guys'
