@@ -1,31 +1,35 @@
 import os
+import re
 import hashlib
 from datetime import datetime
 
 import yaml
 from flask import Flask, render_template, request
-from peewee import CharField, DateTimeField, Model, MySQLDatabase, TextField
+from peewee import CharField, DateTimeField, Model, MySQLDatabase, SqliteDatabase, TextField
 from playhouse.shortcuts import model_to_dict
 
 
 app = Flask(__name__)
 app.config["FLASK_DEBUG"] = os.environ.get("FLASK_DEBUG", 0)
 
-# helper function for gravatar hash (to render the gravatar image)
+EMAIL_RE = re.compile(r"[^@\s]+@[^@\s]+\.[^@\s]+")
+
 @app.template_filter("gravatar_hash")
 def gravatar_hash(email):
     normalized_email = (email or "").strip().lower().encode("utf-8")
     return hashlib.md5(normalized_email).hexdigest()
 
-mydb = MySQLDatabase(
-    os.environ.get("MYSQL_DATABASE"),
-    user=os.environ.get("MYSQL_USER"),
-    password=os.environ.get("MYSQL_PASSWORD"),
-    host=os.environ.get("MYSQL_HOST"),
-    port=3306,
-)
-
-print(mydb)
+if os.environ.get("TESTING") == "true":
+    print("Running in test mode")
+    mydb = SqliteDatabase(":memory:")
+else:
+    mydb = MySQLDatabase(
+        os.environ.get("MYSQL_DATABASE"),
+        user=os.environ.get("MYSQL_USER"),
+        password=os.environ.get("MYSQL_PASSWORD"),
+        host=os.environ.get("MYSQL_HOST"),
+        port=3306,
+    )
 
 # timeline schema
 class TimelinePost(Model):
@@ -54,9 +58,17 @@ def inject_globals():
 # api routes
 @app.route("/api/timeline_post", methods=["POST"])
 def post_timeline_post():
-    name = request.form["name"]
-    email = request.form["email"]
-    content = request.form["content"]
+    name = request.form.get("name")
+    email = request.form.get("email")
+    content = request.form.get("content")
+
+    if not name:
+        return "Invalid name", 400
+    if not content:
+        return "Invalid content", 400
+    if not email or not EMAIL_RE.fullmatch(email):
+        return "Invalid email", 400
+
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
     if request.headers.get("HX-Request"):
